@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===================== CALCULATOR BODY ===================== -->
+  <div class="calculator">
+
+    <!-- Brand / header strip -->
+    <div class="brand">
+      <span>Reckon&thinsp;·&thinsp;80</span>
+      <span class="model">solar&nbsp;free</span>
+    </div>
+
+    <!-- Display screen: shows running history + current value -->
+    <div class="screen">
+      <div class="screen-history" id="history">&nbsp;</div>
+      <div class="screen-main" id="display">0</div>
+    </div>
+
+    <!-- ===================== BUTTON GRID ===================== -->
+    <div class="keys">
+      <!-- Row 1: functions -->
+      <button class="key-func" data-action="clear">C</button>
+      <button class="key-func" data-action="sign">±</button>
+      <button class="key-func" data-action="percent">%</button>
+      <button class="key-op" data-action="operator" data-value="÷">÷</button>
+
+      <!-- Row 2 -->
+      <button data-action="digit" data-value="7">7</button>
+      <button data-action="digit" data-value="8">8</button>
+      <button data-action="digit" data-value="9">9</button>
+      <button class="key-op" data-action="operator" data-value="×">×</button>
+
+      <!-- Row 3 -->
+      <button data-action="digit" data-value="4">4</button>
+      <button data-action="digit" data-value="5">5</button>
+      <button data-action="digit" data-value="6">6</button>
+      <button class="key-op" data-action="operator" data-value="−">−</button>
+
+      <!-- Row 4 -->
+      <button data-action="digit" data-value="1">1</button>
+      <button data-action="digit" data-value="2">2</button>
+      <button data-action="digit" data-value="3">3</button>
+      <button class="key-op" data-action="operator" data-value="+">+</button>
+
+      <!-- Row 5 -->
+      <button class="key-zero" data-action="digit" data-value="0">0</button>
+      <button data-action="decimal">.</button>
+      <button class="key-eq" data-action="equals">=</button>
+    </div>
+
+    <div class="footnote">keyboard ready · esc clears</div>
+  </div>
+
+  <!-- JavaScript logic -->
+  <script src="script.js"></script>
+</body>
+</html>

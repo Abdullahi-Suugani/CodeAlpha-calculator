@@ -1,0 +1,218 @@
+/* =========================================================
+   CALCULATOR STYLES
+   Theme: retro desk calculator with an amber LED display
+   ========================================================= */
+
+/* ---- Design tokens (colors, fonts) ---- */
+:root {
+  --body-color: #2b2b2e;
+  --body-color-light: #3a3a3e;
+  --body-shadow: #17171a;
+  --screen-bg: #1c2118;
+  --led-amber: #ffb347;
+  --led-amber-dim: #6b4a1f;
+  --key-num: #454549;
+  --key-num-top: #525256;
+  --key-op: #c96a3f;
+  --key-op-top: #db7d4f;
+  --key-func: #6d6d72;
+  --key-func-top: #7c7c81;
+  --key-eq: #4f8a5f;
+  --key-eq-top: #5fa072;
+  --text-light: #eae7e0;
+  --font-display: 'Courier New', monospace;
+  --font-label: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* Reset box model so padding/border don't break layout math */
+* {
+  box-sizing: border-box;
+}
+
+/* ---- Page background & centering ---- */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 30% 20%, #3d3d42, #131315 70%);
+  font-family: var(--font-label);
+  padding: 24px;
+}
+
+/* ---- Calculator outer shell ---- */
+.calculator {
+  width: 340px;
+  max-width: 100%;
+  background: linear-gradient(160deg, var(--body-color-light), var(--body-color));
+  border-radius: 22px;
+  padding: 22px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 -6px 12px rgba(0, 0, 0, 0.4) inset;
+  position: relative;
+}
+
+/* ---- Brand strip above the screen ---- */
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 2px 6px 14px;
+  color: #9a9a9f;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.brand .model {
+  color: var(--led-amber);
+  opacity: 0.7;
+  font-size: 10px;
+  letter-spacing: 2px;
+}
+
+/* ---- Display screen ---- */
+.screen {
+  background: var(--screen-bg);
+  border-radius: 10px;
+  padding: 22px 18px 14px;
+  margin-bottom: 18px;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.5) inset,
+    0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Faint scanline texture over the screen for a CRT/LED feel */
+.screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.015) 0px,
+    rgba(255, 255, 255, 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+/* Small line above the main display: shows "12 +" style running history */
+.screen-history {
+  min-height: 18px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--led-amber-dim);
+  text-align: right;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+/* Main number display */
+.screen-main {
+  font-family: var(--font-display);
+  font-size: 40px;
+  color: var(--led-amber);
+  text-align: right;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  overflow-x: auto;
+  text-shadow: 0 0 12px rgba(255, 179, 71, 0.55);
+  min-height: 48px;
+  scrollbar-width: none;
+}
+.screen-main::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- Button grid ---- */
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+/* Base button style (digits use this as-is) */
+button {
+  border: none;
+  font-family: var(--font-label);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-light);
+  height: 58px;
+  border-radius: 12px;
+  cursor: pointer;
+  background: var(--key-num);
+  background-image: linear-gradient(160deg, var(--key-num-top), var(--key-num));
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.35),
+    0 5px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.06s ease, box-shadow 0.06s ease, filter 0.15s ease;
+  position: relative;
+}
+
+button:hover {
+  filter: brightness(1.08);
+}
+
+/* Pressed state: button "sinks" down (mouse click or keyboard press) */
+button:active,
+button.pressed {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Accessible keyboard focus ring */
+button:focus-visible {
+  outline: 2px solid var(--led-amber);
+  outline-offset: 2px;
+}
+
+/* Operator keys (÷ × − +) */
+.key-op {
+  background-image: linear-gradient(160deg, var(--key-op-top), var(--key-op));
+  font-size: 20px;
+}
+
+/* Function keys (C, ±, %) */
+.key-func {
+  background-image: linear-gradient(160deg, var(--key-func-top), var(--key-func));
+  font-size: 15px;
+}
+
+/* Equals key: taller, spans two rows */
+.key-eq {
+  background-image: linear-gradient(160deg, var(--key-eq-top), var(--key-eq));
+  grid-row: span 2;
+  height: auto;
+}
+
+/* Zero key: wider, spans two columns */
+.key-zero {
+  grid-column: span 2;
+}
+
+/* ---- Footer text ---- */
+.footnote {
+  text-align: center;
+  color: #6b6b70;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin-top: 16px;
+  text-transform: uppercase;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  button {
+    transition: none;
+  }
+}
