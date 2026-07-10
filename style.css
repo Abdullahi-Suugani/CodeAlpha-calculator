@@ -1,9 +1,3 @@
-/* =========================================================
-   CALCULATOR STYLES
-   Theme: retro desk calculator with an amber LED display
-   ========================================================= */
-
-/* ---- Design tokens (colors, fonts) ---- */
 :root {
   --body-color: #2b2b2e;
   --body-color-light: #3a3a3e;
@@ -20,32 +14,33 @@
   --key-eq: #4f8a5f;
   --key-eq-top: #5fa072;
   --text-light: #eae7e0;
-  --font-display: 'Courier New', monospace;
-  --font-label: 'Segoe UI', system-ui, sans-serif;
+  --font-display: "Courier New", monospace;
+  --font-label: "Segoe UI", system-ui, sans-serif;
 }
 
-/* Reset box model so padding/border don't break layout math */
 * {
   box-sizing: border-box;
 }
 
-/* ---- Page background & centering ---- */
 body {
   margin: 0;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 30% 20%, #3d3d42, #131315 70%);
+  background: white;
   font-family: var(--font-label);
   padding: 24px;
 }
 
-/* ---- Calculator outer shell ---- */
 .calculator {
   width: 340px;
   max-width: 100%;
-  background: linear-gradient(160deg, var(--body-color-light), var(--body-color));
+  background: linear-gradient(
+    160deg,
+    var(--body-color-light),
+    var(--body-color)
+  );
   border-radius: 22px;
   padding: 22px;
   box-shadow:
@@ -55,26 +50,6 @@ body {
   position: relative;
 }
 
-/* ---- Brand strip above the screen ---- */
-.brand {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 2px 6px 14px;
-  color: #9a9a9f;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-}
-
-.brand .model {
-  color: var(--led-amber);
-  opacity: 0.7;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-/* ---- Display screen ---- */
 .screen {
   background: var(--screen-bg);
   border-radius: 10px;
@@ -87,7 +62,6 @@ body {
   overflow: hidden;
 }
 
-/* Faint scanline texture over the screen for a CRT/LED feel */
 .screen::before {
   content: "";
   position: absolute;
@@ -102,7 +76,6 @@ body {
   pointer-events: none;
 }
 
-/* Small line above the main display: shows "12 +" style running history */
 .screen-history {
   min-height: 18px;
   font-family: var(--font-display);
@@ -116,7 +89,6 @@ body {
   transition: color 0.2s ease;
 }
 
-/* Main number display */
 .screen-main {
   font-family: var(--font-display);
   font-size: 40px;
@@ -133,14 +105,12 @@ body {
   display: none;
 }
 
-/* ---- Button grid ---- */
 .keys {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
-/* Base button style (digits use this as-is) */
 button {
   border: none;
   font-family: var(--font-label);
@@ -155,7 +125,10 @@ button {
   box-shadow:
     0 3px 0 rgba(0, 0, 0, 0.35),
     0 5px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.06s ease, box-shadow 0.06s ease, filter 0.15s ease;
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.06s ease,
+    filter 0.15s ease;
   position: relative;
 }
 
@@ -163,44 +136,43 @@ button:hover {
   filter: brightness(1.08);
 }
 
-/* Pressed state: button "sinks" down (mouse click or keyboard press) */
 button:active,
 button.pressed {
   transform: translateY(3px);
-  box-shadow: 0 0 0 rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 0 0 rgba(0, 0, 0, 0.35),
+    0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Accessible keyboard focus ring */
 button:focus-visible {
   outline: 2px solid var(--led-amber);
   outline-offset: 2px;
 }
 
-/* Operator keys (÷ × − +) */
 .key-op {
   background-image: linear-gradient(160deg, var(--key-op-top), var(--key-op));
   font-size: 20px;
 }
 
-/* Function keys (C, ±, %) */
 .key-func {
-  background-image: linear-gradient(160deg, var(--key-func-top), var(--key-func));
+  background-image: linear-gradient(
+    160deg,
+    var(--key-func-top),
+    var(--key-func)
+  );
   font-size: 15px;
 }
 
-/* Equals key: taller, spans two rows */
 .key-eq {
   background-image: linear-gradient(160deg, var(--key-eq-top), var(--key-eq));
   grid-row: span 2;
   height: auto;
 }
 
-/* Zero key: wider, spans two columns */
 .key-zero {
   grid-column: span 2;
 }
 
-/* ---- Footer text ---- */
 .footnote {
   text-align: center;
   color: #6b6b70;
@@ -210,7 +182,6 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
-/* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   button {
     transition: none;
